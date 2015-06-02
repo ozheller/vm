@@ -1,0 +1,28 @@
+---
+- name: Check if Drupal is already set up.
+  stat: "path={{ drupal_core_path }}/index.php"
+  register: drupal_site
+
+- name: Generate Drupal site with drush makefile.
+  command: "drush make -y {{ drush_makefile_path }} {{ drupal_core_path }}"
+  when: drupal_site.stat.exists == false
+  sudo: no
+
+- name: Install Drupal (standard profile) with drush.
+  command: >
+    drush si {{ drupal_install_profile | default('standard') }} -y
+    --site-name="{{ drupal_site_name }}"
+    --account-name={{ drupal_account_name }}
+    --account-pass={{ drupal_account_pass }}
+    --db-url=mysql://{{ drupal_mysql_user }}:{{ drupal_mysql_password }}@localhost/{{ mysql_databases[0].name }}
+    chdir={{ drupal_core_path }}
+  notify: restart webserver
+  when: drupal_site.stat.exists == false
+  sudo: no
+
+- name: Install configured modules with drush.
+  command: >
+    drush en -y {{ drupal_enable_modules | join(" ") }}
+    chdir={{ drupal_core_path }}
+  when: drupal_site.stat.exists == false
+  sudo: no
