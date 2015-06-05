@@ -13,4 +13,4 @@ mv firefox firefox33
 ln -s /opt/firefox33/firefox /usr/bin/firefox
 mkdir /var/selenium
 cp /var/www/vm/selenium-2.44.0.jar /var/selenium
-cp .bash_aliases ~/
+cp /var/www/vm/.bash_aliases ~
