@@ -1,3 +1,6 @@
+I've made some additions for headless testing to GeerlingGuy's Drupal-VM. 
+You will need to configure the headless_testing_setup.sh to match your path. 
+
 # Drupal Development VM
 
 http://www.drupalvm.com/
