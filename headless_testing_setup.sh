@@ -16,3 +16,4 @@ mkdir /var/selenium
 wget https://selenium-release.storage.googleapis.com/2.44/selenium-server-standalone-2.44.0.jar
 mv selenium-server-standalone-2.44.0.jar /var/selenium/selenium-2.44.0.jar
 cp /var/www/.bash_aliases ~
+chown -R vagrant:vagrant /home
